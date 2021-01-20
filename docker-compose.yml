@@ -1,0 +1,8 @@
+version: '3'
+services:
+  # for development purposes
+  tests: &tests
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: ['composer', 'ci']
