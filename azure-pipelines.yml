@@ -32,8 +32,8 @@ jobs:
     condition: and(succeeded(), eq(variables['isTaggedBuild'], 'true'))
     steps:
       - script: |
-        docker build . -t ${APP_IMAGE}
-        ./deploy.sh
+          docker build . -t ${APP_IMAGE}
+          ./deploy.sh
         displayName: 'Info'
         env:
           APP_IMAGE: $(APP_IMAGE)
