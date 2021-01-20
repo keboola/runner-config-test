@@ -23,9 +23,9 @@ class ConfigDefinition extends BaseConfigDefinition
                         ->thenInvalid('Allowed operations are: ' . implode(', ', $operations))
                         ->end()
                     ->end()
-                ->scalarNode('timeout')
-                ->variableNode('arbitrary')
                 ->end()
+                ->scalarNode('timeout')->end()
+                ->variableNode('arbitrary')->end()
             ->end()
         ;
         // @formatter:on
