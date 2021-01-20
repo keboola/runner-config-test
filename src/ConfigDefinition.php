@@ -21,7 +21,6 @@ class ConfigDefinition extends BaseConfigDefinition
                     ->validate()
                         ->ifnotinarray($operations)
                         ->thenInvalid('Allowed operations are: ' . implode(', ', $operations))
-                        ->end()
                     ->end()
                 ->end()
                 ->scalarNode('timeout')->end()
