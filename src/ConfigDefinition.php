@@ -24,6 +24,7 @@ class ConfigDefinition extends BaseConfigDefinition
                         ->end()
                     ->end()
                 ->scalarNode('timeout')
+                ->variableNode('arbitrary')
                 ->end()
             ->end()
         ;

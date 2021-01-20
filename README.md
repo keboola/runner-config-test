@@ -24,6 +24,8 @@ Valid values for operation are:
 - `unsafe-dump-config` -- print the config file including secrets 
 - `sleep` -- sleep for a number of seconds given in the `timeout` parameter
 
+You can pass arbitrary data in the `parameters.arbitrary` node.
+
 Run the component php src\run.php.
 
 ## Development
