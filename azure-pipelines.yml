@@ -31,7 +31,7 @@ jobs:
     displayName: 'Deploy'
     condition: and(succeeded(), eq(variables['isTaggedBuild'], 'true'))
     steps:
-      - script: deploy.sh
+      - script: ./deploy.sh
         displayName: 'Info'
         env:
           APP_IMAGE: $(APP_IMAGE)
