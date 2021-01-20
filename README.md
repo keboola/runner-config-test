@@ -1,34 +1,28 @@
 # runner-staging-test
 
-[![Build Status](https://travis-ci.com/keboola/runner-staging-test.svg?branch=master)](https://travis-ci.com/keboola/runner-staging-test)
+[![Build Status](https://travis-ci.com/keboola/runner-config-test.svg?branch=master)](https://travis-ci.com/keboola/runner-config-test)
 
-Component for testing Runner input mapping from ABS and S3 staging storage. 
+Component for testing Runner configuration interactions. 
 > :warning: This component is not for production use, it is deployed only to testing.
 
 # Usage
-
-Create a configuration with S3 or ABS input stage and input mapping, operation and optionally filename.
-Set `operation` parameter either to "list" to list the filenames of the input manifests.
-Set `operation` parameter either to "content" to dump the content of the manifest specified by `filename`.
+Create the following configuration.
 
 ```json
     {             
         "storage": {
             "parameters": {
-                "operation": "content",
-                "filename": "my-file"            
-            },
-            "input": {        
-                "files": [
-                    {
-                        "source": "test-file",
-                        "destination": "my-file"
-                    }
-                ]     
-            }   
+                "operation": "list",
+            }
         }
     }
 ```
+
+Valid values for operation are:
+- `list` -- list files in input mapping folders
+- `dump-config` -- print the config.json file
+- `unsafe-dump-config` -- print the config file including secrets 
+- `sleep` -- sleep for a number of seconds given in the `timeout` parameter
 
 Run the component php src\run.php.
 

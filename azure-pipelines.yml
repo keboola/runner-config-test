@@ -17,23 +17,29 @@ variables:
   - name: imageTag
     value: ${{ replace(variables['Build.SourceBranch'],'refs/tags/','') }}
 
-step:
-  - script: |
-      docker-compose down
-      docker-compose build --pull
-      docker-compose run --rm tests
+jobs:
+  - job: runTests
     displayName: 'Run Tests'
+    steps:
+      - script: |
+          docker-compose down
+          docker-compose build --pull
+          docker-compose run --rm tests
+        displayName: ''
 
-  - script: deploy.sh
+  - job: deploy
+    displayName: 'Deploy'
     condition: and(succeeded(), eq(variables['isTaggedBuild'], 'true'))
-    displayName: 'Info'
-    env:
-      APP_IMAGE: $(APP_IMAGE)
-      DEPLOY_AWS_ACCESS_KEY: $(DEPLOY_AWS_ACCESS_KEY)
-      DEPLOY_AWS_ACCESS_KEY_SECRET: $(DEPLOY_AWS_ACCESS_KEY_SECRET)
-      KBC_DEVELOPERPORTAL_APP: $(KBC_DEVELOPERPORTAL_APP)
-      KBC_DEVELOPERPORTAL_PASSWORD: $(KBC_DEVELOPERPORTAL_PASSWORD)
-      KBC_DEVELOPERPORTAL_USERNAME: $(KBC_DEVELOPERPORTAL_USERNAME)
-      KBC_DEVELOPERPORTAL_VENDOR: $(KBC_DEVELOPERPORTAL_VENDOR)
-      REPOSITORY: $(REPOSITORY)
-      IMAGE_TAG: $(imageTag)
+    steps:
+      - script: deploy.sh
+        displayName: 'Info'
+        env:
+          APP_IMAGE: $(APP_IMAGE)
+          DEPLOY_AWS_ACCESS_KEY: $(DEPLOY_AWS_ACCESS_KEY)
+          DEPLOY_AWS_ACCESS_KEY_SECRET: $(DEPLOY_AWS_ACCESS_KEY_SECRET)
+          KBC_DEVELOPERPORTAL_APP: $(KBC_DEVELOPERPORTAL_APP)
+          KBC_DEVELOPERPORTAL_PASSWORD: $(KBC_DEVELOPERPORTAL_PASSWORD)
+          KBC_DEVELOPERPORTAL_USERNAME: $(KBC_DEVELOPERPORTAL_USERNAME)
+          KBC_DEVELOPERPORTAL_VENDOR: $(KBC_DEVELOPERPORTAL_VENDOR)
+          REPOSITORY: $(REPOSITORY)
+          IMAGE_TAG: $(imageTag)
