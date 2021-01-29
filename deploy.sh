@@ -17,7 +17,7 @@ then
         -e KBC_DEVELOPERPORTAL_USERNAME \
         -e KBC_DEVELOPERPORTAL_PASSWORD \
         quay.io/keboola/developer-portal-cli-v2:latest \
-        update-app-repository ${KBC_DEVELOPERPORTAL_VENDOR} ${KBC_DEVELOPERPORTAL_APP} ${BUILD_TAG} ecr ${REPOSITORY}
+        update-app-repository ${KBC_DEVELOPERPORTAL_VENDOR} ${KBC_DEVELOPERPORTAL_APP} ${IMAGE_TAG} ecr ${REPOSITORY}
 else
     echo "Skipping deployment to KBC, tag ${IMAGE_TAG} is not allowed."
 fi
