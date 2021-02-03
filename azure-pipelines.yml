@@ -31,10 +31,10 @@ stages:
 
   - stage: deploy
     displayName: 'Deploy'
+    condition: and(succeeded(), eq(variables['isTaggedBuild'], 'true'))
     jobs:
       - job: deploy
         displayName: 'Deploy to DEV'
-        condition: and(succeeded(), eq(variables['isTaggedBuild'], 'true'))
         steps:
           - script: |
               docker build . -t ${APP_IMAGE}
