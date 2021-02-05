@@ -23,6 +23,7 @@ Valid values for operation are:
 - `dump-config` -- print the config.json file
 - `unsafe-dump-config` -- print the config file including secrets 
 - `sleep` -- sleep for a number of seconds given in the `timeout` parameter
+- `dump-env` -- show environment variables
 
 You can pass arbitrary data in the `parameters.arbitrary` node.
 

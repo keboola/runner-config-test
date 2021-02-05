@@ -41,6 +41,11 @@ class Component extends BaseComponent
                 sleep($config->getTimeout());
                 $this->getLogger()->info(sprintf('Slept for "%s" seconds.', $config->getTimeout()));
                 break;
+            case 'dump-env':
+                foreach (getenv() as $key => $value) {
+                    $this->getLogger()->info(sprintf('Environment "%s" has value "%s".', $key, $value));
+                }
+                break;
             default:
                 throw new UserException('Invalid operation');
         }
