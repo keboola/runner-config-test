@@ -1,0 +1,9 @@
+{
+  "parameters": {
+    "operation": "child-jobs",
+    "timeout": 0,
+    "#token": "%env(string:STORAGE_TOKEN)%",
+    "queueApiUrl": "%env(string:QUEUE_API_URL)%",
+    "childJobsCount": 3
+  }
+}
