@@ -14,7 +14,7 @@ class DatadirTest extends DatadirTestCase
      */
     public function testDatadir(DatadirTestSpecificationInterface $specification): void
     {
-        if ('/code/tests/functional/child-jobs/source/data' === $specification->getSourceDatadirDirectory()) {
+        if ($specification->getSourceDatadirDirectory() === '/code/tests/functional/child-jobs/source/data') {
             $this->markTestSkipped('child-jobs skipped - queue api is not public');
         }
 

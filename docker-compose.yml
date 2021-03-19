@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     command: ['composer', 'ci']
     environment:
-      QUEUE_API_URL: 'https://queue.east-us-2.azure.keboola-testing.com'
+      QUEUE_API_URL:
       STORAGE_TOKEN:
 
   tests-local:
