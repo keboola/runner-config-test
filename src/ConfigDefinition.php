@@ -11,7 +11,7 @@ class ConfigDefinition extends BaseConfigDefinition
 {
     protected function getParametersDefinition(): ArrayNodeDefinition
     {
-        $operations = ['list', 'dump-config', 'unsafe-dump-config', 'sleep', 'dump-env'];
+        $operations = ['list', 'dump-config', 'unsafe-dump-config', 'sleep', 'dump-env', 'child-jobs'];
         $parametersNode = parent::getParametersDefinition();
         // @formatter:off
         /** @noinspection NullPointerExceptionInspection */
@@ -25,6 +25,9 @@ class ConfigDefinition extends BaseConfigDefinition
                 ->end()
                 ->scalarNode('timeout')->end()
                 ->variableNode('arbitrary')->end()
+                ->scalarNode('#token')->end()
+                ->scalarNode('queueApiUrl')->end()
+                ->scalarNode('childJobsCount')->end()
             ->end()
         ;
         // @formatter:on

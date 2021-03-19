@@ -2,7 +2,15 @@ version: '3'
 services:
   # for development purposes
   tests: &tests
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     command: ['composer', 'ci']
+    environment:
+      QUEUE_API_URL: 'https://queue.east-us-2.azure.keboola-testing.com'
+      STORAGE_TOKEN:
+
+  tests-local:
+    <<: *tests
+    volumes:
+      - ./:/code

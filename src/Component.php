@@ -6,6 +6,7 @@ namespace Keboola\RunnerStagingTest;
 
 use Keboola\Component\BaseComponent;
 use Keboola\Component\UserException;
+use Keboola\JobQueueClient\Client;
 use Symfony\Component\Finder\Finder;
 
 class Component extends BaseComponent
@@ -46,6 +47,19 @@ class Component extends BaseComponent
                     $this->getLogger()->info(sprintf('Environment "%s" has value "%s".', $key, $value));
                 }
                 break;
+            case 'child-jobs':
+                $timeout = $config->getTimeout();
+                $queueClient = new Client($this->getLogger(), $config->getQueueApiUrl(), $config->getToken());
+                for ($i = 0; $i < $config->getChildJobsCount(); $i++) {
+                    $job = $queueClient->createJob($this->createChildJobData($timeout));
+                    $this->getLogger()->info(sprintf(
+                        'Created child job "%s" with timeout "%s".',
+                        $job['id'],
+                        $timeout
+                    ));
+                }
+                $this->getLogger()->info('Parent job finished.');
+                break;
             default:
                 throw new UserException('Invalid operation');
         }
@@ -59,5 +73,19 @@ class Component extends BaseComponent
     protected function getConfigDefinitionClass(): string
     {
         return ConfigDefinition::class;
+    }
+
+    private function createChildJobData(int $sleepSeconds): array
+    {
+        return [
+            'component' => 'keboola.runner-config-test',
+            'mode' => 'run',
+            'configData' => [
+                'parameters' => [
+                    'operation' => 'sleep',
+                    'timeout' => $sleepSeconds,
+                ],
+            ],
+        ];
     }
 }

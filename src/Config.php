@@ -17,4 +17,19 @@ class Config extends BaseConfig
     {
         return (int) $this->getValue(['parameters', 'timeout'], null);
     }
+
+    public function getToken(): string
+    {
+        return $this->getValue(['parameters', '#token']);
+    }
+
+    public function getQueueApiUrl(): string
+    {
+        return $this->getValue(['parameters', 'queueApiUrl']);
+    }
+
+    public function getChildJobsCount(): int
+    {
+        return $this->getValue(['parameters', 'childJobsCount']);
+    }
 }

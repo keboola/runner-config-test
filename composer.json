@@ -4,9 +4,10 @@
     "license": "MIT",
     "require": {
         "php": "^7.4",
+        "ext-json": "*",
+        "keboola/job-queue-api-php-client": "^0.0.2",
         "keboola/php-component": "^8.1",
-        "symfony/finder": "^5.1",
-        "ext-json": "*"
+        "symfony/finder": "^5.1"
     },
     "require-dev": {
         "keboola/coding-standard": ">=7.0.2",
