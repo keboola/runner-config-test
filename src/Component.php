@@ -60,6 +60,10 @@ class Component extends BaseComponent
                 }
                 $this->getLogger()->info('Parent job finished.');
                 break;
+            case 'whoami':
+                $result = system('whoami');
+                $this->getLogger()->info(sprintf('Running under "%s" user.', $result));
+                break;
             default:
                 throw new UserException('Invalid operation');
         }
