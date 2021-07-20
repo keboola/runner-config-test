@@ -62,7 +62,7 @@ class Component extends BaseComponent
                 $this->getLogger()->info('Parent job finished.');
                 break;
             case 'whoami':
-                $process = new Process('whoami');
+                $process = new Process(['whoami']);
                 $process->mustRun();
                 $this->getLogger()->info(sprintf('Running under "%s" user.', $process->getOutput()));
                 break;
