@@ -64,7 +64,7 @@ class Component extends BaseComponent
             case 'whoami':
                 $process = new Process(['whoami']);
                 $process->mustRun();
-                $this->getLogger()->info(sprintf('Running under "%s" user.', $process->getOutput()));
+                $this->getLogger()->info(sprintf('Running under "%s" user.', trim($process->getOutput())));
                 break;
             default:
                 throw new UserException('Invalid operation');
