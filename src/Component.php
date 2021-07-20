@@ -8,6 +8,7 @@ use Keboola\Component\BaseComponent;
 use Keboola\Component\UserException;
 use Keboola\JobQueueClient\Client;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Process\Process;
 
 class Component extends BaseComponent
 {
@@ -59,6 +60,11 @@ class Component extends BaseComponent
                     ));
                 }
                 $this->getLogger()->info('Parent job finished.');
+                break;
+            case 'whoami':
+                $process = new Process(['whoami']);
+                $process->mustRun();
+                $this->getLogger()->info(sprintf('Running under "%s" user.', trim($process->getOutput())));
                 break;
             default:
                 throw new UserException('Invalid operation');

@@ -11,7 +11,7 @@ class ConfigDefinition extends BaseConfigDefinition
 {
     protected function getParametersDefinition(): ArrayNodeDefinition
     {
-        $operations = ['list', 'dump-config', 'unsafe-dump-config', 'sleep', 'dump-env', 'child-jobs'];
+        $operations = ['list', 'dump-config', 'unsafe-dump-config', 'sleep', 'dump-env', 'child-jobs', 'whoami'];
         $parametersNode = parent::getParametersDefinition();
         // @formatter:off
         /** @noinspection NullPointerExceptionInspection */
