@@ -1,4 +1,4 @@
-# runner-staging-test
+# runner-config-test
 
 [![Build Status](https://travis-ci.com/keboola/runner-config-test.svg?branch=master)](https://travis-ci.com/keboola/runner-config-test)
 
@@ -10,10 +10,8 @@ Create the following configuration.
 
 ```json
     {             
-        "storage": {
-            "parameters": {
-                "operation": "list",
-            }
+        "parameters": {
+            "operation": "list"
         }
     }
 ```
