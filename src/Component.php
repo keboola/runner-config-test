@@ -7,6 +7,7 @@ namespace Keboola\RunnerStagingTest;
 use Keboola\Component\BaseComponent;
 use Keboola\Component\UserException;
 use Keboola\JobQueueClient\Client;
+use Keboola\JobQueueClient\JobData;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
 
@@ -50,7 +51,7 @@ class Component extends BaseComponent
                 break;
             case 'child-jobs':
                 $timeout = $config->getTimeout();
-                $queueClient = new Client($this->getLogger(), $config->getQueueApiUrl(), $config->getToken());
+                $queueClient = new Client($config->getQueueApiUrl(), $config->getToken());
                 for ($i = 0; $i < $config->getChildJobsCount(); $i++) {
                     $job = $queueClient->createJob($this->createChildJobData($timeout));
                     $this->getLogger()->info(sprintf(
@@ -81,17 +82,18 @@ class Component extends BaseComponent
         return ConfigDefinition::class;
     }
 
-    private function createChildJobData(int $sleepSeconds): array
+    private function createChildJobData(int $sleepSeconds): JobData
     {
-        return [
-            'component' => 'keboola.runner-config-test',
-            'mode' => 'run',
-            'configData' => [
+        return new JobData(
+            'keboola.runner-config-test',
+            null,
+            [
                 'parameters' => [
                     'operation' => 'sleep',
                     'timeout' => $sleepSeconds,
                 ],
             ],
-        ];
+            'run',
+        );
     }
 }
