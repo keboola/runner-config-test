@@ -51,7 +51,11 @@ class Component extends BaseComponent
                 break;
             case 'child-jobs':
                 $timeout = $config->getTimeout();
-                $queueClient = new Client($config->getQueueApiUrl(), $config->getToken());
+                $queueClient = new Client(
+                    $config->getQueueApiUrl(),
+                    $config->getToken(),
+                    ['logger' => $this->getLogger()]
+                );
                 for ($i = 0; $i < $config->getChildJobsCount(); $i++) {
                     $job = $queueClient->createJob($this->createChildJobData($timeout));
                     $this->getLogger()->info(sprintf(
