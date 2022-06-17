@@ -10,26 +10,26 @@ class Config extends BaseConfig
 {
     public function getOperation(): string
     {
-        return $this->getValue(['parameters', 'operation']);
+        return $this->getStringValue(['parameters', 'operation']);
     }
 
     public function getTimeout(): int
     {
-        return (int) $this->getValue(['parameters', 'timeout'], null);
+        return $this->getIntValue(['parameters', 'timeout'], null);
     }
 
     public function getToken(): string
     {
-        return $this->getValue(['parameters', '#token']);
+        return $this->getStringValue(['parameters', '#token']);
     }
 
     public function getQueueApiUrl(): string
     {
-        return $this->getValue(['parameters', 'queueApiUrl']);
+        return $this->getStringValue(['parameters', 'queueApiUrl']);
     }
 
     public function getChildJobsCount(): int
     {
-        return $this->getValue(['parameters', 'childJobsCount']);
+        return $this->getIntValue(['parameters', 'childJobsCount']);
     }
 }
