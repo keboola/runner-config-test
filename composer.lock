@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dcd3f5438a39bf9a9d5692ae5d9a2465",
+    "content-hash": "ef6efa83326220529074948a17fac027",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -2114,16 +2114,16 @@
         },
         {
             "name": "keboola/datadir-tests",
-            "version": "dev-odin-PS-3804",
+            "version": "5.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/keboola/datadir-tests.git",
-                "reference": "ac41c863ebadb06467e1a515dfeddc3cace7f2e7"
+                "reference": "78a8bb34fe09be4666b09080bfa289d61aec7f14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/keboola/datadir-tests/zipball/ac41c863ebadb06467e1a515dfeddc3cace7f2e7",
-                "reference": "ac41c863ebadb06467e1a515dfeddc3cace7f2e7",
+                "url": "https://api.github.com/repos/keboola/datadir-tests/zipball/78a8bb34fe09be4666b09080bfa289d61aec7f14",
+                "reference": "78a8bb34fe09be4666b09080bfa289d61aec7f14",
                 "shasum": ""
             },
             "require": {
@@ -2153,9 +2153,9 @@
             "description": "Tool for functional testing of Keboola Connection components",
             "support": {
                 "issues": "https://github.com/keboola/datadir-tests/issues",
-                "source": "https://github.com/keboola/datadir-tests/tree/odin-PS-3804"
+                "source": "https://github.com/keboola/datadir-tests/tree/5.5.0"
             },
-            "time": "2022-09-06T11:23:16+00:00"
+            "time": "2022-09-06T13:23:13+00:00"
         },
         {
             "name": "keboola/php-temp",
@@ -4091,9 +4091,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "keboola/datadir-tests": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
