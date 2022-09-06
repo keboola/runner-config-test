@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Keboola\RunnerStagingTest;
 
 use Keboola\Component\BaseComponent;
+use Keboola\Component\Exception\BaseComponentException;
+use Keboola\Component\JsonHelper;
 use Keboola\Component\UserException;
 use Keboola\JobQueueClient\Client;
 use Keboola\JobQueueClient\JobData;
@@ -99,5 +101,86 @@ class Component extends BaseComponent
             ],
             'run',
         );
+    }
+
+    public function getSyncActions(): array
+    {
+        return [
+            'dumpConfig' => 'dumpConfigAction',
+            'dumpEnv' => 'dumpEnvAction',
+            'timeout' => 'timeoutAction',
+            'emptyJsonArray' => 'timeoutAction',
+            'emptyJsonObject' => 'emptyJsonObjectAction',
+            'invalidJson' => 'invalidJsonAction',
+            'noResponse' => 'noResponseAction',
+            'userError' => 'userErrorAction',
+            'applicationError' => 'applicationErrorAction',
+        ];
+    }
+
+    public function dumpConfigAction(): string
+    {
+        return (string) file_get_contents($this->getDataDir() . '/config.json');
+    }
+
+    public function dumpEnvAction(): string
+    {
+        return (string) json_encode(getenv());
+    }
+
+    public function timeoutAction(): string
+    {
+        sleep(60);
+        return '';
+    }
+
+    public function emptyJsonArrayAction(): string
+    {
+        return '[]';
+    }
+
+    public function emptyJsonObjectAction(): string
+    {
+        return '{}';
+    }
+
+    public function invalidJsonAction(): string
+    {
+        return '{"tables": ["a", "b", "c"]';
+    }
+
+    public function noResponseAction(): string
+    {
+        return '';
+    }
+
+    public function userErrorAction(): string
+    {
+        print('User Error');
+        exit(1);
+    }
+
+    public function applicationErrorAction(): string
+    {
+        print('Application Error');
+        exit(2);
+    }
+
+    // method is overridden so that we can produce raw output
+    public function execute(): void
+    {
+        if (!$this->isSyncAction()) {
+            $this->run();
+            return;
+        }
+
+        $action = $this->getConfig()->getAction();
+        $syncActions = $this->getSyncActions();
+        if (array_key_exists($action, $syncActions)) {
+            $method = $syncActions[$action];
+            echo $this->$method();
+        } else {
+            throw BaseComponentException::invalidSyncAction($action);
+        }
     }
 }

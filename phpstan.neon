@@ -6,3 +6,5 @@ parameters:
         - tests
     ignoreErrors:
         - '#Cannot call method scalarNode\(\) on Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\|null.#'
+includes:
+    - vendor/phpstan/phpstan-phpunit/extension.neon
