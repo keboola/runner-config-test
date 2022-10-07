@@ -44,7 +44,7 @@ class ConfigDefinition extends BaseConfigDefinition
                                         ->isRequired()
                                         ->values(array_keys(Logger::getLevels()))
                                         ->beforeNormalization()
-                                            ->always(fn(array $v) => array_map(strtoupper(...), $v))
+                                            ->always(fn($v) => is_string($v) ? strtoupper($v) : $v)
                                         ->end()
                                     ->end()
                                     ->scalarNode('message')

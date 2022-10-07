@@ -192,7 +192,7 @@ class Component extends BaseComponent
             echo json_encode($log).PHP_EOL;
             $gelfLogger->addRecord($logLevels[$log['level']], $log['message'], $log['context'] ?? []);
         }
-        echo 'null].PHP_EOL';
+        echo 'null]'.PHP_EOL;
 
         return '';
     }
