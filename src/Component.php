@@ -186,12 +186,15 @@ class Component extends BaseComponent
         $gelfLogsHandler = new GelfHandler($gelfPublisher);
         $gelfLogger = new MonologLogger('app', [$gelfLogsHandler]);
 
+        echo '['.PHP_EOL;
         $logLevels = MonologLogger::getLevels();
         foreach ($logs['records'] as $log) {
+            echo json_encode($log).PHP_EOL;
             $gelfLogger->addRecord($logLevels[$log['level']], $log['message'], $log['context'] ?? []);
         }
+        echo 'null].PHP_EOL';
 
-        return '{}';
+        return '';
     }
 
     // method is overridden so that we can produce raw output
