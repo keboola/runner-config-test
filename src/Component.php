@@ -178,9 +178,9 @@ class Component extends BaseComponent
         $logs = $config->getLogs();
 
         $gelfPublisher = match ($logs['transport']) {
-            'udp' => new UdpTransport(),
-            'tcp' => new TcpTransport(),
-            'http' => new HttpTransport(),
+            'udp' => new UdpTransport((string) getenv('KBC_LOGGER_ADDR'), (string) getenv('KBC_LOGGER_PORT')),
+            'tcp' => new TcpTransport((string) getenv('KBC_LOGGER_ADDR'), (string) getenv('KBC_LOGGER_PORT')),
+            'http' => new HttpTransport((string) getenv('KBC_LOGGER_ADDR'), (string) getenv('KBC_LOGGER_PORT')),
         };
 
         $gelfLogsHandler = new GelfHandler($gelfPublisher);
