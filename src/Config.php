@@ -6,6 +6,9 @@ namespace Keboola\RunnerStagingTest;
 
 use Keboola\Component\Config\BaseConfig;
 
+/**
+ * @phpstan-import-type LevelName from \Monolog\Logger
+ */
 class Config extends BaseConfig
 {
     public function getOperation(): string
@@ -31,5 +34,21 @@ class Config extends BaseConfig
     public function getChildJobsCount(): int
     {
         return $this->getIntValue(['parameters', 'childJobsCount']);
+    }
+
+    /**
+     * @return array{
+     *     transport: 'udp'|'tcp'|'http',
+     *     records: array{
+     *         level: LevelName,
+     *         message: non-empty-string,
+     *         context?: array<mixed>
+     *     }[]
+     * }
+     */
+    public function getLogs(): array
+    {
+        // @phpstan-ignore-next-line because getArrayValue returns generic array
+        return $this->getArrayValue(['parameters', 'logs']);
     }
 }

@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace Keboola\RunnerStagingTest;
 
+use Gelf\Transport\HttpTransport;
+use Gelf\Transport\TcpTransport;
+use Gelf\Transport\UdpTransport;
 use Keboola\Component\BaseComponent;
 use Keboola\Component\Exception\BaseComponentException;
-use Keboola\Component\JsonHelper;
 use Keboola\Component\UserException;
 use Keboola\JobQueueClient\Client;
 use Keboola\JobQueueClient\JobData;
+use Monolog\Handler\GelfHandler;
+use Monolog\Logger as MonologLogger;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
 
@@ -115,6 +119,7 @@ class Component extends BaseComponent
             'noResponse' => 'noResponseAction',
             'userError' => 'userErrorAction',
             'applicationError' => 'applicationErrorAction',
+            'printLogs' => 'printLogsAction',
         ];
     }
 
@@ -164,6 +169,29 @@ class Component extends BaseComponent
     {
         print('Application Error');
         exit(2);
+    }
+
+    public function printLogsAction(): string
+    {
+        /** @var Config $config */
+        $config = $this->getConfig();
+        $logs = $config->getLogs();
+
+        $gelfPublisher = match ($logs['transport']) {
+            'udp' => new UdpTransport((string) getenv('KBC_LOGGER_ADDR'), (int) getenv('KBC_LOGGER_PORT')),
+            'tcp' => new TcpTransport((string) getenv('KBC_LOGGER_ADDR'), (int) getenv('KBC_LOGGER_PORT')),
+            'http' => new HttpTransport((string) getenv('KBC_LOGGER_ADDR'), (int) getenv('KBC_LOGGER_PORT')),
+        };
+
+        $gelfLogsHandler = new GelfHandler($gelfPublisher);
+        $gelfLogger = new MonologLogger('app', [$gelfLogsHandler]);
+
+        $logLevels = MonologLogger::getLevels();
+        foreach ($logs['records'] as $log) {
+            $gelfLogger->addRecord($logLevels[$log['level']], $log['message'], $log['context'] ?? []);
+        }
+
+        return json_encode($logs['records'], JSON_THROW_ON_ERROR);
     }
 
     // method is overridden so that we can produce raw output
