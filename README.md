@@ -27,6 +27,34 @@ You can pass arbitrary data in the `parameters.arbitrary` node.
 
 Run the component php src\run.php.
 
+## Sync actions
+Component supports following sync actions:
+* `dumpConfig` - dumps `config.json` to output
+* `dumpEnv` - dumps all ENV vars to output
+* `timeout` - sleeps 60 seconds, causing sync action timeout
+* `emptyJsonArray` - outputs empty JSON array (`[]`)
+* `emptyJsonObject` - outputs empty JSON object (`{}`)
+* `invalidJson` - outputs invalid JSON
+* `noResponse` - returns with no output
+* `userError` - causes process to end with exit code `1`
+* `applicationError` - causes process to end with exit code `2`
+* `printLogs` - sends logs to GELF logger
+  * requires `KBC_LOGGER_ADDR` and `KBC_LOGGER_PORT` env vars
+  * supports configuration:
+    ```json
+      {
+        "parameters": {
+          "logs": {
+            "transport": "udp", # udp, tcp, http
+            "records": [
+              {"level": "debug", "message": "debug message"},
+              {"level": "critical", "message": "critical message", "context": {"extraKey": "extraVal"}}
+            ]
+          }
+        }
+      }
+    ```
+
 ## Development
  
 Clone this repository.
