@@ -113,7 +113,7 @@ class Component extends BaseComponent
             'dumpConfig' => 'dumpConfigAction',
             'dumpEnv' => 'dumpEnvAction',
             'timeout' => 'timeoutAction',
-            'emptyJsonArray' => 'timeoutAction',
+            'emptyJsonArray' => 'emptyJsonArrayAction',
             'emptyJsonObject' => 'emptyJsonObjectAction',
             'invalidJson' => 'invalidJsonAction',
             'noResponse' => 'noResponseAction',
