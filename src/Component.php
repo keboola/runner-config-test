@@ -72,6 +72,9 @@ class Component extends BaseComponent
                 }
                 $this->getLogger()->info('Parent job finished.');
                 break;
+            case 'create-state':
+                $this->writeOutputStateToFile($config->getArrayValue(['parameters', 'arbitrary']));
+                break;
             case 'whoami':
                 $process = new Process(['whoami']);
                 $process->mustRun();
