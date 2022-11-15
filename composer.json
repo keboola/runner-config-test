@@ -6,8 +6,8 @@
         "php": "^8.1",
         "ext-json": "*",
         "graylog2/gelf-php": "^1.7",
-        "keboola/job-queue-api-php-client": "^10.0",
-        "keboola/php-component": "9.2",
+        "keboola/job-queue-api-php-client": "^2.1",
+        "keboola/php-component": "9.3",
         "monolog/monolog": "^2.3",
         "phpstan/phpstan-phpunit": "^1.1",
         "symfony/finder": "^6.1"

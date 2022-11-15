@@ -1,0 +1,8 @@
+{
+    "parameters": {
+        "operation": "create-state",
+        "arbitrary": {
+            "baz": "bar"
+        }
+    }
+}
