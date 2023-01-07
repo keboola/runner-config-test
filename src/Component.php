@@ -28,7 +28,7 @@ class Component extends BaseComponent
         try {
             $operation = $config->getOperation();
         } catch (InvalidArgumentException $e) {
-            throw new UserException('Invalid configuration ' . $e->getMessage(), 0, $e);
+            throw new UserException('Invalid configuration: ' . $e->getMessage(), 0, $e);
         }
         $inputTablesDir = $this->getDataDir() . '/in/tables';
 
