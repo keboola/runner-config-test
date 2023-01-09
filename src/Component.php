@@ -7,6 +7,7 @@ namespace Keboola\RunnerStagingTest;
 use Gelf\Transport\HttpTransport;
 use Gelf\Transport\TcpTransport;
 use Gelf\Transport\UdpTransport;
+use InvalidArgumentException;
 use Keboola\Component\BaseComponent;
 use Keboola\Component\Exception\BaseComponentException;
 use Keboola\Component\UserException;
@@ -14,6 +15,7 @@ use Keboola\JobQueueClient\Client;
 use Keboola\JobQueueClient\JobData;
 use Monolog\Handler\GelfHandler;
 use Monolog\Logger as MonologLogger;
+use RuntimeException;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
 
@@ -23,7 +25,11 @@ class Component extends BaseComponent
     {
         /** @var Config $config */
         $config = $this->getConfig();
-        $operation = $config->getOperation();
+        try {
+            $operation = $config->getOperation();
+        } catch (InvalidArgumentException $e) {
+            throw new UserException('Invalid configuration: ' . $e->getMessage(), 0, $e);
+        }
         $inputTablesDir = $this->getDataDir() . '/in/tables';
 
         switch ($operation) {
@@ -80,6 +86,10 @@ class Component extends BaseComponent
                 $process->mustRun();
                 $this->getLogger()->info(sprintf('Running under "%s" user.', trim($process->getOutput())));
                 break;
+            case 'user-error':
+                throw new UserException('This is a user error.');
+            case 'application-error':
+                throw new RuntimeException('This is an application error.');
             default:
                 throw new UserException('Invalid operation');
         }
