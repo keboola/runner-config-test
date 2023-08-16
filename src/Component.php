@@ -89,6 +89,8 @@ class Component extends BaseComponent
             case 'print-logs':
                 $output = $this->printLogsAction();
                 $this->getLogger()->info(sprintf('Action output "%s".', $output));
+                sleep(3600);
+                $this->getLogger()->info('Sleep end.');
                 break;
             case 'user-error':
                 throw new UserException('This is a user error.');
