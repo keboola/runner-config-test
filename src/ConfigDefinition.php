@@ -23,6 +23,7 @@ class ConfigDefinition extends BaseConfigDefinition
             'unsafe-dump-config',
             'user-error',
             'whoami',
+            'print-logs',
         ];
         $parametersNode = parent::getParametersDefinition();
         // @formatter:off
