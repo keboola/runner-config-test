@@ -22,7 +22,7 @@ Valid values for operation are:
 - `unsafe-dump-config` -- print the config file including secrets 
 - `sleep` -- sleep for a number of seconds given in the `timeout` parameter
 - `dump-env` -- show environment variables
-- `print-logs` -- send logs to GELF logger
+- `print-logs` -- send logs to GELF logger, same parameters as in sync actions below
 - `user-error` - causes process to end with exit code `1`
 - `application-error` - causes process to end with exit code `2`
 
