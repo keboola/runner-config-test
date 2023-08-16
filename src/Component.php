@@ -86,6 +86,10 @@ class Component extends BaseComponent
                 $process->mustRun();
                 $this->getLogger()->info(sprintf('Running under "%s" user.', trim($process->getOutput())));
                 break;
+            case 'print-logs':
+                $output = $this->printLogsAction();
+                $this->getLogger()->info(sprintf('Action output "%s".', $output));
+                break;
             case 'user-error':
                 throw new UserException('This is a user error.');
             case 'application-error':
