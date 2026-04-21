@@ -1,6 +1,6 @@
 # runner-config-test
 
-[![Build Status](https://travis-ci.com/keboola/runner-config-test.svg?branch=master)](https://travis-ci.com/keboola/runner-config-test)
+[![GitHub Actions](https://github.com/keboola/runner-config-test/actions/workflows/push.yml/badge.svg)](https://github.com/keboola/runner-config-test/actions/workflows/push.yml)
 
 Component for testing Runner configuration interactions. 
 > :warning: This component is not for production use, it is deployed only to testing.
@@ -65,7 +65,7 @@ Clone this repository.
 Run the test suite using this command:
 
 ```
-docker-compose run --rm dev composer tests
+docker compose run --rm dev composer tests
 ```
  
 # Integration
