@@ -14,6 +14,7 @@ class ConfigDefinition extends BaseConfigDefinition
     {
         $operations = [
             'application-error',
+            'create-result',
             'create-state',
             'child-jobs',
             'dump-config',
@@ -38,6 +39,7 @@ class ConfigDefinition extends BaseConfigDefinition
                 ->end()
                 ->scalarNode('timeout')->end()
                 ->variableNode('arbitrary')->end()
+                ->variableNode('result')->end()
                 ->scalarNode('#token')->end()
                 ->scalarNode('queueApiUrl')->end()
                 ->scalarNode('childJobsCount')->end()
