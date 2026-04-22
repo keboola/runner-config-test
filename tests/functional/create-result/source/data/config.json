@@ -1,0 +1,10 @@
+{
+    "parameters": {
+        "operation": "create-result",
+        "result": {
+            "variables": {
+                "foo": "bar"
+            }
+        }
+    }
+}
