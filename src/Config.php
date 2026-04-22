@@ -48,4 +48,9 @@ class Config extends BaseConfig
         // @phpstan-ignore-next-line because getArrayValue returns generic array
         return $this->getArrayValue(['parameters', 'logs']);
     }
+
+    public function getResult(): mixed
+    {
+        return $this->getValue(['parameters', 'result']);
+    }
 }
