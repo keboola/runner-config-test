@@ -82,6 +82,12 @@ class Component extends BaseComponent
             case 'create-state':
                 $this->writeOutputStateToFile($config->getArrayValue(['parameters', 'arbitrary']));
                 break;
+            case 'create-result':
+                file_put_contents(
+                    $this->getDataDir() . '/out/result.json',
+                    (string) json_encode($config->getResult()),
+                );
+                break;
             case 'whoami':
                 $process = new Process(['whoami']);
                 $process->mustRun();
