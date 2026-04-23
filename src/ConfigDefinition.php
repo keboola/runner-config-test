@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Keboola\RunnerStagingTest;
 
 use Keboola\Component\Config\BaseConfigDefinition;
-use Monolog\Logger;
+use Monolog\Level;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 class ConfigDefinition extends BaseConfigDefinition
@@ -54,7 +54,7 @@ class ConfigDefinition extends BaseConfigDefinition
                                 ->children()
                                     ->enumNode('level')
                                         ->isRequired()
-                                        ->values(array_keys(Logger::getLevels()))
+                                        ->values(Level::NAMES)
                                         ->beforeNormalization()
                                             ->always(fn($v) => is_string($v) ? strtoupper($v) : $v)
                                         ->end()

@@ -6,9 +6,6 @@ namespace Keboola\RunnerStagingTest;
 
 use Keboola\Component\Config\BaseConfig;
 
-/**
- * @phpstan-import-type LevelName from \Monolog\Logger
- */
 class Config extends BaseConfig
 {
     public function getOperation(): string
@@ -40,7 +37,7 @@ class Config extends BaseConfig
      * @return array{
      *     transport: 'udp'|'tcp'|'http',
      *     records: array{
-     *         level: LevelName,
+     *         level: 'DEBUG'|'INFO'|'NOTICE'|'WARNING'|'ERROR'|'CRITICAL'|'ALERT'|'EMERGENCY',
      *         message: non-empty-string,
      *         context?: array<mixed>
      *     }[]

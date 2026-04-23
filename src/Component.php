@@ -14,6 +14,7 @@ use Keboola\Component\UserException;
 use Keboola\JobQueueClient\Client;
 use Keboola\JobQueueClient\JobData;
 use Monolog\Handler\GelfHandler;
+use Monolog\Level;
 use Monolog\Logger as MonologLogger;
 use RuntimeException;
 use Symfony\Component\Finder\Finder;
@@ -66,14 +67,14 @@ class Component extends BaseComponent
                 $queueClient = new Client(
                     $config->getQueueApiUrl(),
                     $config->getToken(),
-                    ['logger' => $this->getLogger()]
+                    ['logger' => $this->getLogger()],
                 );
                 for ($i = 0; $i < $config->getChildJobsCount(); $i++) {
                     $job = $queueClient->createJob($this->createChildJobData($timeout));
                     $this->getLogger()->info(sprintf(
                         'Created child job "%s" with timeout "%s".',
-                        $job['id'],
-                        $timeout
+                        $job->id,
+                        $timeout,
                     ));
                 }
                 $this->getLogger()->info('Parent job finished.');
@@ -203,9 +204,8 @@ class Component extends BaseComponent
         $gelfLogsHandler = new GelfHandler($gelfPublisher);
         $gelfLogger = new MonologLogger('app', [$gelfLogsHandler]);
 
-        $logLevels = MonologLogger::getLevels();
         foreach ($logs['records'] as $log) {
-            $gelfLogger->addRecord($logLevels[$log['level']], $log['message'], $log['context'] ?? []);
+            $gelfLogger->addRecord(Level::fromName($log['level']), $log['message'], $log['context'] ?? []);
         }
 
         return json_encode($logs['records'], JSON_THROW_ON_ERROR);
